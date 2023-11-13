@@ -16,96 +16,186 @@
     limitations under the License.
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-   <modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-   <parent>
-      <artifactId>WebDemonstrator</artifactId>
-      <groupId>com.cardatechnologies.archetype</groupId>
-      <version>1.0-SNAPSHOT</version>
-   </parent>
+    <parent>
+        <groupId>com.cardatechnologies.archetype</groupId>
+        <artifactId>WebDemonstrator</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
 
-   <artifactId>WebDemonstrator-web</artifactId>
-   <packaging>war</packaging>
+    <artifactId>WebDemonstrator-web</artifactId>
+    <packaging>war</packaging>
 
-   <name>WebDemonstrator - web</name>
+    <name>WebDemonstrator - web</name>
 
-   <url>http://jboss.org/jbossas</url>
-   <licenses>
-      <license>
-         <name>Apache License, Version 2.0</name>
-         <distribution>repo</distribution>
-         <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
-      </license>
-   </licenses>
+    <url>http://jboss.org/jbossas</url>
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
-   <dependencies>
+    <dependencies>
 
-      <!-- Dependency on the EJB module so we can use it's services if needed -->
-      <dependency>
-         <groupId>com.cardatechnologies.archetype</groupId>
-         <artifactId>WebDemonstrator-ejb</artifactId>
-         <type>ejb</type>
-         <scope>provided</scope>
-      </dependency>
+        <!-- Dependency on the EJB module so we can use it's services if needed -->
+        <dependency>
+            <groupId>com.cardatechnologies.archetype</groupId>
+            <artifactId>WebDemonstrator-ejb</artifactId>
+            <type>ejb</type>
+            <scope>provided</scope>
+        </dependency>
 
-      <!-- Import the JAX-RS API, we use provided scope as the API is included in JBoss AS 7 -->
-      <dependency>
-         <groupId>org.jboss.spec.javax.ws.rs</groupId>
-         <artifactId>jboss-jaxrs-api_1.1_spec</artifactId>
-         <scope>provided</scope>
-      </dependency>
+        <!-- Import the CDI API, we use provided scope as the API is included in JBoss AS 7 -->
+        <dependency>
+            <groupId>javax.enterprise</groupId>
+            <artifactId>cdi-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
 
-      <!-- Import the CDI API, we use provided scope as the API is included in JBoss AS 7 -->
-      <dependency>
-         <groupId>javax.enterprise</groupId>
-         <artifactId>cdi-api</artifactId>
-         <scope>provided</scope>
-      </dependency>
-      
-      <!-- Import the JSF API, we use provided scope as the API is included in JBoss AS 7 -->
-      <dependency>
-         <groupId>org.jboss.spec.javax.faces</groupId>
-         <artifactId>jboss-jsf-api_2.1_spec</artifactId>
-         <scope>provided</scope>
-      </dependency>
+        <!-- JSR-303 (Bean Validation) Implementation -->
+        <!-- Provides portable constraints such as @Email -->
+        <!-- Hibernate Validator is shipped in JBoss AS 7 -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 
-      <!-- Import the JPA API, we use provided scope as the API is included in JBoss AS 7 -->
-      <dependency>
-         <groupId>org.hibernate.javax.persistence</groupId>
-         <artifactId>hibernate-jpa-2.0-api</artifactId>
-         <scope>provided</scope>
-      </dependency>
+        <!-- Import the JPA API, we use provided scope as the API is included in JBoss AS 7 -->
+        <dependency>
+            <groupId>org.hibernate.javax.persistence</groupId>
+            <artifactId>hibernate-jpa-2.0-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
 
-       <!-- JSR-303 (Bean Validation) Implementation -->
-       <!-- Provides portable constraints such as @Email -->
-       <!-- Hibernate Validator is shipped in JBoss AS 7 -->
-       <dependency>
-           <groupId>org.hibernate</groupId>
-           <artifactId>hibernate-validator</artifactId>
-           <scope>provided</scope>
-           <exclusions>
-               <exclusion>
-                   <groupId>org.slf4j</groupId>
-                   <artifactId>slf4j-api</artifactId>
-               </exclusion>
-           </exclusions>
-       </dependency>
+        <!-- Import the JSF API, we use provided scope as the API is included in JBoss AS 7 -->
+        <dependency>
+            <groupId>org.jboss.spec.javax.faces</groupId>
+            <artifactId>jboss-jsf-api_2.1_spec</artifactId>
+            <scope>provided</scope>
+        </dependency>
 
-   </dependencies>
+        <!-- Import the JAX-RS API, we use provided scope as the API is included in JBoss AS 7 -->
+        <dependency>
+            <groupId>org.jboss.spec.javax.ws.rs</groupId>
+            <artifactId>jboss-jaxrs-api_1.1_spec</artifactId>
+            <scope>provided</scope>
+        </dependency>
 
-   <build>
-      <finalName>${project.artifactId}</finalName>
-      <plugins>
-         <plugin>
-            <artifactId>maven-war-plugin</artifactId>
-            <version>${version.war.plugin}</version>
-            <configuration>
-               <!-- Java EE 6 doesn't require web.xml, Maven needs to catch up! -->
-               <failOnMissingWebXml>false</failOnMissingWebXml>
-            </configuration>
-         </plugin>
-      </plugins>
-   </build>
+    </dependencies>
+
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+            </plugin>
+
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>${version.war.plugin}</version>
+                <configuration>
+                    <!-- Java EE 6 doesn't require web.xml, Maven needs to catch up! -->
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+
+                    <archive>
+                        <index>true</index>
+                        <addMavenDescriptor>false</addMavenDescriptor>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                        </manifest>
+                        <manifestSections>
+                            <!-- =============================================  -->
+                            <!--  Ownership Information   ====================  -->
+                            <manifestSection>
+                                <name>OWNERSHIP INFORMATION</name>
+                                <manifestEntries>
+                                    <License>Licensed under the Apache License, Version 2.0</License>
+                                    <Copyright>Copyright (c) 2023 Daniel Carda</Copyright>
+                                    <Rights>All rights reserved.</Rights>
+                                    <Organization-Name>${project.organization.name}</Organization-Name>
+                                    <Country>United States of America</Country>
+                                </manifestEntries>
+                            </manifestSection>
+                            <!-- =============================================  -->
+                            <!--  Build Intelligence   =======================  -->
+                            <manifestSection>
+                                <name>BUILD INTELLIGENCE</name>
+                                <manifestEntries>
+                                    <Project-Name>${project.name}</Project-Name>
+                                    <Machine-OS>${os.name} ${os.arch} ${os.version}</Machine-OS>
+                                    <Built-By>${user.name}</Built-By>
+                                    <Build-Time>${timestamp}</Build-Time>
+                                </manifestEntries>
+                            </manifestSection>
+                            <!-- =============================================  -->
+                            <!--  Java Information   =========================  -->
+                            <manifestSection>
+                                <name>JAVA INFORMATION</name>
+                                <manifestEntries>
+                                    <Build-JDK>${java.version} (${java.vendor} ${java.vm.version})</Build-JDK>
+                                    <Java-Home>${java.home}</Java-Home>
+                                    <Source_Level>${maven.compiler.source}</Source_Level>
+                                    <Output_Level>${maven.compiler.target}</Output_Level>
+                                    <Optimized>false</Optimized>
+                                    <encoding>${project.build.sourceEncoding}</encoding>
+                                </manifestEntries>
+                            </manifestSection>
+                            <!-- =============================================  -->
+                            <!--  Maven Information   ========================  -->
+                            <manifestSection>
+                                <name>MAVEN INFORMATION</name>
+                                <manifestEntries>
+                                    <Maven-Version>${maven.version}</Maven-Version>
+                                    <Artifact-Id>${project.artifactId}</Artifact-Id>
+                                    <Group-Id>${project.groupId}</Group-Id>
+                                    <Version>${project.version}</Version>
+                                    <Packaging>${project.packaging}</Packaging>
+                                    <Maven-Version>${maven.version}</Maven-Version>
+                                </manifestEntries>
+                            </manifestSection>
+                            <!-- =============================================  -->
+                            <!--  SCM Information   ==========================  -->
+                            <manifestSection>
+                                <name>SCM INFORMATION</name>
+                                <manifestEntries>
+                                    <SCM-Branch>${git.branch}</SCM-Branch>
+                                    <SCM-Commit-id>${git.commit.id}</SCM-Commit-id>
+                                    <SCM-Commit-id-Abbr>${git.commit.id.abbrev}</SCM-Commit-id-Abbr>
+                                    <SCM-Last-Commit-Time>${git.commit.time}</SCM-Last-Commit-Time>
+                                    <SCM-Last-Checkin-User>${git.commit.user.name}</SCM-Last-Checkin-User>
+                                </manifestEntries>
+                            </manifestSection>
+                            <!-- =============================================  -->
+                            <!--  Host Information   ==========================  -->
+                            <manifestSection>
+                                <name>HOST INFORMATION</name>
+                                <manifestEntries>
+                                    <hostname>${env.HOSTNAME}</hostname>
+                                </manifestEntries>
+                            </manifestSection>
+                            <!-- =============================================  -->
+                        </manifestSections>
+                    </archive>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
 
 </project>

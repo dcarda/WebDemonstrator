@@ -20,8 +20,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>WebDemonstrator</artifactId>
         <groupId>com.cardatechnologies.archetype</groupId>
+        <artifactId>WebDemonstrator</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
@@ -34,23 +34,23 @@
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
-            <distribution>repo</distribution>
             <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+            <distribution>repo</distribution>
         </license>
     </licenses>
 
     <dependencies>
+        <dependency>
+            <groupId>com.cardatechnologies.archetype</groupId>
+            <artifactId>WebDemonstrator-ejb</artifactId>
+            <type>ejb</type>
+        </dependency>
 
         <!-- Depend on the ejb module and war so that we can package them -->
         <dependency>
             <groupId>com.cardatechnologies.archetype</groupId>
             <artifactId>WebDemonstrator-web</artifactId>
             <type>war</type>
-        </dependency>
-        <dependency>
-            <groupId>com.cardatechnologies.archetype</groupId>
-            <artifactId>WebDemonstrator-ejb</artifactId>
-            <type>ejb</type>
         </dependency>
     </dependencies>
 
@@ -69,10 +69,10 @@
                         have any modules (EJB-JARs and WARs) use them -->
                     <defaultLibBundleDir>lib</defaultLibBundleDir>
                     <modules>
-                    <!-- Default context root of the web app is /WebDemonstrator-web. 
+                        <!-- Default context root of the web app is /WebDemonstrator-web. 
                         If a custom context root is needed, uncomment the following snippet to
                         register our War as a web module and set the contextRoot property -->
-                    <!--
+                        <!--
                     <webModule>
                         <groupId>com.cardatechnologies.archetype</groupId>
                         <artifactId>WebDemonstrator-web</artifactId>
@@ -81,6 +81,89 @@
                     -->
                     </modules>
                     <fileNameMapping>no-version</fileNameMapping>
+
+                    <archive>
+                        <index>true</index>
+                        <addMavenDescriptor>false</addMavenDescriptor>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                        </manifest>
+                        <manifestSections>
+                            <!-- =============================================  -->
+                            <!--  Ownership Information   ====================  -->
+                            <manifestSection>
+                                <name>OWNERSHIP INFORMATION</name>
+                                <manifestEntries>
+                                    <License>Licensed under the Apache License, Version 2.0</License>
+                                    <Copyright>Copyright (c) 2023 Daniel Carda</Copyright>
+                                    <Rights>All rights reserved.</Rights>
+                                    <Organization-Name>${project.organization.name}</Organization-Name>
+                                    <Country>United States of America</Country>
+                                </manifestEntries>
+                            </manifestSection>
+                            <!-- =============================================  -->
+                            <!--  Build Intelligence   =======================  -->
+                            <manifestSection>
+                                <name>BUILD INTELLIGENCE</name>
+                                <manifestEntries>
+                                    <Project-Name>${project.name}</Project-Name>
+                                    <Machine-OS>${os.name} ${os.arch} ${os.version}</Machine-OS>
+                                    <Built-By>${user.name}</Built-By>
+                                    <Build-Time>${timestamp}</Build-Time>
+                                </manifestEntries>
+                            </manifestSection>
+                            <!-- =============================================  -->
+                            <!--  Java Information   =========================  -->
+                            <manifestSection>
+                                <name>JAVA INFORMATION</name>
+                                <manifestEntries>
+                                    <Build-JDK>${java.version} (${java.vendor} ${java.vm.version})</Build-JDK>
+                                    <Java-Home>${java.home}</Java-Home>
+                                    <Source_Level>${maven.compiler.source}</Source_Level>
+                                    <Output_Level>${maven.compiler.target}</Output_Level>
+                                    <Optimized>false</Optimized>
+                                    <encoding>${project.build.sourceEncoding}</encoding>
+                                </manifestEntries>
+                            </manifestSection>
+                            <!-- =============================================  -->
+                            <!--  Maven Information   ========================  -->
+                            <manifestSection>
+                                <name>MAVEN INFORMATION</name>
+                                <manifestEntries>
+                                    <Maven-Version>${maven.version}</Maven-Version>
+                                    <Artifact-Id>${project.artifactId}</Artifact-Id>
+                                    <Group-Id>${project.groupId}</Group-Id>
+                                    <Version>${project.version}</Version>
+                                    <Packaging>${project.packaging}</Packaging>
+                                    <Maven-Version>${maven.version}</Maven-Version>
+                                </manifestEntries>
+                            </manifestSection>
+                            <!-- =============================================  -->
+                            <!--  SCM Information   ==========================  -->
+                            <manifestSection>
+                                <name>SCM INFORMATION</name>
+                                <manifestEntries>
+                                    <SCM-Branch>${git.branch}</SCM-Branch>
+                                    <SCM-Commit-id>${git.commit.id}</SCM-Commit-id>
+                                    <SCM-Commit-id-Abbr>${git.commit.id.abbrev}</SCM-Commit-id-Abbr>
+                                    <SCM-Last-Commit-Time>${git.commit.time}</SCM-Last-Commit-Time>
+                                    <SCM-Last-Checkin-User>${git.commit.user.name}</SCM-Last-Checkin-User>
+                                </manifestEntries>
+                            </manifestSection>
+                            <!-- =============================================  -->
+                            <!--  Host Information   ==========================  -->
+                            <manifestSection>
+                                <name>HOST INFORMATION</name>
+                                <manifestEntries>
+                                    <hostname>${env.HOSTNAME}</hostname>
+                                </manifestEntries>
+                            </manifestSection>
+                            <!-- =============================================  -->
+                        </manifestSections>
+                    </archive>
+
+
                 </configuration>
             </plugin>
             <!-- The JBoss AS plugin deploys your ear to a local JBoss AS container -->
@@ -97,7 +180,7 @@
             </plugin>
         </plugins>
     </build>
-   
+
     <profiles>
         <profile>
             <!-- When built in OpenShift the 'openshift' profile will be used when invoking mvn. -->
