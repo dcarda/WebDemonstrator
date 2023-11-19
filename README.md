@@ -71,10 +71,75 @@ https://github.com/git/git/tree/master/contrib/completion
 
 
 ----
+
+Setting up the Git SSH Keys
+-------------------------
+<details>
+  <summary>Click me</summary>
+
+You might as well set these up early.  You're going to need them and it will make checking in and out much easier.
+
+The good news is generating SSH keys is pretty simple.  Also, you can
+backup the .ssh directory which will be created and keep it (pretty much)
+forever.  When ever I build a new machine I just back up the old .ssh
+directory and move it to the new machine.
+
+Follow this 
+[link](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent#generating-a-new-ssh-key)
+for instructions on how to generate your SSH keys.
+
+
+</details>
+
+----
+Installing your SSH Key in GitHub
+-------------------------
+<details>
+  <summary>Click me</summary>
+
+Now that you've got your SSH key generated, you need to install the public key in GitHub.  Fortunately, this
+is pretty easy to do.
+
+Log on to your GitHub Account click on the big icon on the left-side of the screen.  This will take you to your profile page.
+
+
+
+
+<img src="docs/img.png" width="30%" />
+
+
+
+
+<img src="docs/img_1.png" width="80%" />
+
+
+
+
+<img src="docs/img_2.png" width="70%" />
+
+
+On your system, the .ssh directory will be located under your root home.
+
+Look for a file called:
+
+    id_rsa.pub
+
+Add the contents to the "keys" text field.  
+
+You should be good!
+
+
+</details>
+
+
+
+
+
+
+----
+
 Setting up the .gitconfig
 -------------------------
-
-
 
 <details>
   <summary>Click me</summary>
