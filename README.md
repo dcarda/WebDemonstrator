@@ -173,6 +173,8 @@ Setting up the .bashrc
 
 
 
+
+
 <details>
   <summary>Click me</summary>
 
