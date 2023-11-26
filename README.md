@@ -11,6 +11,30 @@ https://edwardcher.typepad.com/breaking_the_echo_chamber/2013/06/build-jboss-ejb
 
 
 ----
+JBoss Wildfly 29
+=========================
+
+
+### downloads
+https://www.wildfly.org/downloads/
+
+
+
+
+
+### Add Admin User
+
+
+https://www.mastertheboss.com/jbossas/jboss-configuration/how-to-access-wildfly-admin-console/
+
+This will change the userid and password to "jboss".
+
+     ./add-user.sh  -m -u jboss -p jboss
+
+### Admin Console
+http://localhost:9990/console/index.html
+
+----
 Build Environment
 =========================
 
