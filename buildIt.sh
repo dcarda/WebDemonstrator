@@ -236,7 +236,6 @@ function display_ArtifactInformation() {
     ls -al
     echo "  "
     ls -l   WebDemonstrator*.ear
-    cd ..
 
     #  Time to print out the manifest information.
     echo
@@ -245,10 +244,9 @@ function display_ArtifactInformation() {
     echo "                 ***  JAR MANIFEST INFORMATION  ***  "
     echo
 
-    cd target/
-    gzip  WebDemonstrator*.ear META-INF/MANIFEST.MF >file.txt
-    tail -37 file.txt
-
+    jar -xvf  WebDemonstrator-ear.ear META-INF/MANIFEST.MF
+    tail -37 META-INF/MANIFEST.MF
+    rm -rf META-INF/
     cd ../..
 
 }  # ---  End Function display_ArtifactInformation()

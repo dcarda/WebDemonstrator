@@ -34,6 +34,14 @@ This will change the userid and password to "jboss".
 ### Admin Console
 http://localhost:9990/console/index.html
 
+
+WebDemonstrator home page:
+
+http://localhost:8080//WebDemonstrator-web/index.jsf
+
+
+
+
 ----
 Build Environment
 =========================

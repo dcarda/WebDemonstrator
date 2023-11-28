@@ -140,7 +140,9 @@
         <!-- <version.jboss.as>7.2.0.Final-redhat-8</version.jboss.as> -->
 
         <!-- other plugin versions -->
-        <version.ear.plugin>2.6</version.ear.plugin>
+<!--        <version.ear.plugin>2.6</version.ear.plugin>-->
+        <version.ear.plugin>3.3.0</version.ear.plugin>
+
         <version.ejb.plugin>2.3</version.ejb.plugin>
         <version.surefire.plugin>2.10</version.surefire.plugin>
         <version.war.plugin>3.4.0</version.war.plugin>
